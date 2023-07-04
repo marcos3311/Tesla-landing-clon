@@ -1,0 +1,82 @@
+---
+import Logo from "./Logo.astro";
+
+---
+
+<header id="landing-header" class="py-3 px-12 flex items-center fixed top-0 w-full justify-between z-40 text-white">
+    <div class="flex flex-grow basis-0">
+        <Logo />
+    </div>
+
+    <nav>
+        <ul class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
+            <li><a href="#">Model S</a></li>
+            <li><a href="#">Model 3</a></li>
+            <li><a href="#">Model X</a></li>
+            <li><a href="#">Model Y</a></li>
+            <li><a href="#">Solar Roof</a></li>
+            <li><a href="#">Solar Panels</a></li>
+            <li><a href="#">Powerwall</a></li>
+        </ul>
+    </nav>
+    <nav class="flex flex-grow justify-end basis-0">
+        <ul class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Menu</a></li>
+        </ul>
+    </nav>
+
+    <div 
+        id="menu-backdrop"
+        class=" -z-10 absolute bg-black/5 backdrop-blur-lg rounded translate-x-[var(--left)] translate-y-[var(--top)] w-[var(--width)] h-[var(--height)] top-0 left-0 transition-all duration-300 ease-in-out opacity-0"
+        ></div>
+</header>
+
+<script>import { isRenderTemplateResult } from "astro/dist/runtime/server/render/astro";
+
+    const listItem = document.querySelectorAll("#landing-header li");
+    const menuBackDrop = document.querySelector("#menu-backdrop") as HTMLElement;
+
+    listItem.forEach((item) => {
+        item.addEventListener("mouseenter", () =>{
+            const { left, top, width, height } = item.getBoundingClientRect();
+
+            menuBackDrop.style.setProperty('--left', `${left}px`);
+            menuBackDrop.style.setProperty('--top', `${top}px`);
+            menuBackDrop.style.setProperty('--width', `${width}px`);
+            menuBackDrop.style.setProperty('--height', `${height}px`);
+            menuBackDrop.style.opacity = "1";
+            menuBackDrop.style.visibility = "visible";
+        })
+
+        item.addEventListener('mouseleave', () => {
+            menuBackDrop.style.opacity = "0";
+            menuBackDrop.style.visibility = "hidden";
+        })
+    })
+
+
+</script>
+
+<script>
+    const $header = document.querySelector("#landing-header") as HTMLElement;
+    const observerOptions = {
+        root: null, // default to viewport
+        rootMargin: "0px", // En cuanto se vea el elemento
+        threshold: 0.9 // Porcentaje de visibilidad
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const { isIntersecting } = entry;
+            if (isIntersecting) {
+                const color = entry.target.getAttribute('data-header-color');
+                $header.style.color = color;
+            }
+        })
+    }, observerOptions);
+
+    const $sections = document.querySelectorAll('section');
+    $sections.forEach(seaction => observer.observe(seaction));
+</script>

@@ -1,9 +1,59 @@
 ---
+import LandingHeader from '../components/LandingHeader.astro';
+import Logo from '../components/Logo.astro';
 import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ChargeSection from '../components/ChargeSection.astro';
+import Model3 from '../components/Model3.astro';
+import ModelY from '../components/ModelY.astro';
+import ModelS from '../components/ModelS.astro';
+import ModelX from '../components/ModelX.astro';
+import SolarPanels from '../components/SolarPanels.astro';
+import SolarRoof from '../components/SolarRoof.astro';
+import Powerwall from '../components/Powerwall.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<h1></h1>
+	<LandingHeader />
+	
+	<main class="snap-y snap-mandatory relative w-full h-screen overflow-auto">
+		<div class="snap-center">
+			<HeroSection />
+		</div>
+
+		<div class="snap-center">
+			<Model3 />
+		</div>
+
+		<div class="snap-center">
+			<ModelY />
+		</div>
+
+		<div class="snap-center">
+			<ModelS />
+		</div>
+
+
+		<div class="snap-center">
+			<ModelX />
+		</div>
+
+		<div class="snap-center">
+			<SolarPanels />
+		</div>
+
+		<div class="snap-center">
+			<SolarRoof />
+		</div>
+
+		<div class="snap-center">
+			<Powerwall />
+		</div>
+
+		<div class="snap-center">
+			<ChargeSection />
+		</div
+
+
 	</main>
 </Layout>
